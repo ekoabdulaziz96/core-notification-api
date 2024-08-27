@@ -17,7 +17,7 @@ def setup_periodic_tasks(sender, **kwargs):
 @app.route("/", methods=["GET"])
 def index():
     print("print_log_core_notif")
-    return "backep-api", 200
+    return "core-notification-api", 200
 
 
 @app.route("/test-celery", methods=["GET"])

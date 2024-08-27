@@ -2,7 +2,7 @@ from datetime import datetime
 
 from marshmallow import fields, validate, validates, validates_schema, ValidationError
 
-from constants import variables as const
+from constants import variables
 from constants.messages import MessageInvalid
 from cores import settings
 from cores.serializers import Serializer
@@ -19,7 +19,9 @@ class EmailSerializer(Serializer):
     email_content = fields.Str(required=True)
 
     timestamp = fields.DateTime(
-        required=True, format=const.EMAIL_TIMESTAMP_FORMAT, error_messages={"invalid": MessageInvalid.TIMESTAMP_FORMAT}
+        required=True,
+        format=variables.EMAIL_TIMESTAMP_FORMAT,
+        error_messages={"invalid": MessageInvalid.TIMESTAMP_FORMAT},
     )
     status = fields.Function(lambda obj: obj.status.value if obj.status else obj.status, dump_only=True)
 
@@ -35,7 +37,7 @@ class EmailSerializer(Serializer):
     def validates_data(self, data, **kwargs):
         timezone = get_timezone()
         dt_now = datetime.now(tz=timezone)
-        dt_now_str = dt_now.strftime(const.EMAIL_TIMESTAMP_FORMAT)
+        dt_now_str = dt_now.strftime(variables.EMAIL_TIMESTAMP_FORMAT)
         threshold = settings.EMAIL_TIMESTAMP_THRESHOLD
 
         timestamp = data["timestamp"]

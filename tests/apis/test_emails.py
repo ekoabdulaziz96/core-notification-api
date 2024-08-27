@@ -1,15 +1,12 @@
 from datetime import datetime, timedelta
 from json import dumps
 from random import randint, seed
-from unittest import TestCase
+from unittest import mock, TestCase
 
 from flask import url_for
 from pytest import mark
 
-from constants import (
-    status,
-    variables as const,
-)
+from constants import status, variables
 from tests.factories import EmailFactory, faker
 
 
@@ -25,7 +22,7 @@ class TestCreateUser(TestCase):
             "event_id": randint(1, 999999),
             "email_subject": "TEST IN PYTEST",
             "email_content": "Hello, you get a message from core-notif.",
-            "timestamp": (datetime.now() + timedelta(hours=2)).strftime(const.EMAIL_TIMESTAMP_FORMAT),
+            "timestamp": (datetime.now() + timedelta(hours=2)).strftime(variables.EMAIL_TIMESTAMP_FORMAT),
         }
         self.complete_url = url_for("emails.save-emails")
 
@@ -52,6 +49,19 @@ class TestCreateUser(TestCase):
         self.assertIn("email_subject", response.json["data"].keys())
         self.assertIn("email_content", response.json["data"].keys())
         self.assertIn("timestamp", response.json["data"].keys())
+
+    @mock.patch("views.emails.EmailSerializer.is_valid")
+    def test_fail_because_server_error(self, mock_convert_datetime):
+        mock_convert_datetime.side_effect = Exception("Error System")
+        response = self.client_app.post(self.complete_url, data=dumps({}), headers=self.headers)
+
+        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+        self.assertEqual(response.json["status"], "ERROR_SYSTEM")
+        self.assertEqual(
+            response.json["message"],
+            "The request could not be processed. Please wait for some time before trying again."
+            + " If you still have problems, contact CS 12345.",
+        )
 
     def test_fail_because_invalid_event_id_format(self):
         self.payload["event_id"] = "random"

@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 from typing import List
 
-from constants import variables as const
+from constants import variables
 from cores.databases import Column, db, PkModelWithManageAttr, reference_col, relationship
 from cores.utils import get_timezone
 
@@ -87,8 +87,8 @@ class EmailQuery:
         :datetime_now -> datetime_now value for filter data
         """
         tz_singapore = get_timezone(timezone)
-        dt_now_str = (datetime.now(tz=tz_singapore) - timedelta(hours=8)).strftime(const.EMAIL_TIMESTAMP_FORMAT)
-        dt_now = datetime.strptime(dt_now_str, const.EMAIL_TIMESTAMP_FORMAT)
+        dt_now_str = (datetime.now(tz=tz_singapore) - timedelta(hours=8)).strftime(variables.EMAIL_TIMESTAMP_FORMAT)
+        dt_now = datetime.strptime(dt_now_str, variables.EMAIL_TIMESTAMP_FORMAT)
 
         return Email.query.filter_by(timestamp=dt_now).filter_by(status=EmailStatusChoices.PENDING).all()
 

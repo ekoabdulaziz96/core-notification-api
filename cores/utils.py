@@ -37,8 +37,6 @@ def convert_datetime_to_aware_timezone(datetime: datetime, timezone: Timezone) -
     :datetime -> datetime obj
     :timezone -> timezone obj
     """
-    # dt_utc = datetime.replace(tzinfo=pytz.UTC)  # replace method --> aware UTC
-    #  = dt_utc.astimezone(timezone)  # astimezone method --> convert to specific timezone
     dt_aware_timezone = (datetime - timedelta(hours=TIMEZONE_ADD_HOUR)).replace(tzinfo=UTC).astimezone(timezone)
 
     return dt_aware_timezone
