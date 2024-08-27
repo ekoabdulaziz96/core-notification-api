@@ -179,6 +179,7 @@ Auto Formatter with black
 black --config .\pyproject.toml . --check
 
 # run black
+black --config .\pyproject.toml .
 black --config .\pyproject.toml  app_name/sub_folder
 
 # ignore check , add this comment after last code `# noqa`

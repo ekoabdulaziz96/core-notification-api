@@ -23,7 +23,8 @@ RESPONSE_ERROR = {
     resp_err.error_system: {
         "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
         "code": resp_err.error_system,
-        "message": "The request could not be processed. Please wait for some time before trying again. If you still have problems, contact CS 12345.",
+        "message": "The request could not be processed. Please wait for some time before trying again."
+        + "If you still have problems, contact CS 12345.",
     },
     resp_err.invalid_header_json: {
         "status_code": status.HTTP_400_BAD_REQUEST,
