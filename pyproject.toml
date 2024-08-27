@@ -1,0 +1,46 @@
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
+]
+
+
+[tool.ruff]
+line-length = 120
+exclude = [
+  ".git",
+  "migrations",
+  "seeder",
+  ".ruff_cache",
+]
+
+[tool.ruff.lint]
+ignore = ["E501", "B9", "B026"]
+
+# https://docs.astral.sh/ruff/rules/#error-e
+select = [
+  "B",   # flake8-bugbear
+  "C90", # mccabe 
+  "E",   # pycodestyle
+  "F",   # Pyflakes
+  "I",   # isort
+  "W",   # warning
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+
+
+[tool.ruff.lint.isort]
+order-by-type = false
+force-wrap-aliases = true
+combine-as-imports = true
+force-sort-within-sections = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

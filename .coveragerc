@@ -1,0 +1,7 @@
+[run]
+omit=
+    venv/*
+    server.py
+    seeders/*
+    cores/setinngs.py
+    cores/commands.py
