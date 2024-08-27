@@ -64,6 +64,7 @@ def register_commands(app):
     """Register Click commands."""
     pass
 
+
 def make_celery(app):
     celery = Celery(
         "core_notif",

@@ -16,6 +16,7 @@ PAYLOAD_USER_RECIPIENT_LIST = [
     ),
 ]
 
+
 # ----------------------------------------------------- CLASS SEEDER
 class SeedUserRecipient(ParentSeeder):
     def process(self):

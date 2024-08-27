@@ -7,7 +7,7 @@ from server import app
 
 
 @skip("only check test for real server")
-class TestDatabaseSqlConnection(TestCase):   # pragma: no cover
+class TestDatabaseSqlConnection(TestCase):  # pragma: no cover
     @classmethod
     def setUpClass(cls):
         """call once a time"""

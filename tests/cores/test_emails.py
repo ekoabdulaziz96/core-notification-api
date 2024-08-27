@@ -5,7 +5,7 @@ from server import app
 
 
 @skip("only check test for real server")
-class TestMailConnection(TestCase):    # pragma: no cover
+class TestMailConnection(TestCase):  # pragma: no cover
     @classmethod
     def setUpClass(cls):
         super(TestMailConnection, cls).setUpClass()

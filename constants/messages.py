@@ -77,4 +77,3 @@ class MessageInvalid:
     TIMESTAMP_THRESHOLD = "Please set the timestamp value at least {} minutes earlier. Now: {}."
     INVALID_EXIST_DATA = "{} already registered."
     INVALID_NOT_FOUND = "{} not found."
-

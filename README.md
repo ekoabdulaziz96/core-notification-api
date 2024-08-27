@@ -9,6 +9,7 @@ author: ekoabdulaziz96@gmail.com
 [![Code](https://img.shields.io/badge/Code-Python-1B9D73?style=flat&logo=python)](https://python.org)
 [![Framework](https://img.shields.io/badge/Framework-Flask-1B9D73?style=flat&logo=flask)](https://flask.palletsprojects.com/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## How to run
 Make sure you already installed **python3.10** or higher in your machine
@@ -158,9 +159,8 @@ all of unit test all saved in `./tests/*` folder.
     ```
 <br>
 
-### Linting & Formatter with ruff
+### Lint & Format
 Ruff re-implements some of the most popular Flake8 plugins and related code quality tools (include: isort)
-<br>The Ruff formatter is an extremely fast Python code formatter designed as a drop-in replacement for Black
 ```sh
 #  LINTING
 # check the code first
@@ -171,10 +171,18 @@ ruff check --fix
 
 # ignore check , add this comment after last code `# noqa`
 # ex: a = 1   # noqa
+```
 
-# format
-ruff check --select I --fix   # run isort (to sorting the import)
-ruff format
+Auto Formatter with black 
+```sh
+# check first
+black --config .\pyproject.toml . --check
+
+# run black
+black --config .\pyproject.toml  app_name/sub_folder
+
+# ignore check , add this comment after last code `# noqa`
+# ex: a = 1   # fmt: skip
 ```
     
 <br>

@@ -9,23 +9,23 @@ source: Django Rest Framework
 """
 
 
-def is_informational(code):         # pragma: no cover
+def is_informational(code):  # pragma: no cover
     return 100 <= code <= 199
 
 
-def is_success(code):               # pragma: no cover
+def is_success(code):  # pragma: no cover
     return 200 <= code <= 299
 
 
-def is_redirect(code):              # pragma: no cover
+def is_redirect(code):  # pragma: no cover
     return 300 <= code <= 399
 
 
-def is_client_error(code):          # pragma: no cover
+def is_client_error(code):  # pragma: no cover
     return 400 <= code <= 499
 
 
-def is_server_error(code):          # pragma: no cover
+def is_server_error(code):  # pragma: no cover
     return 500 <= code <= 599
 
 

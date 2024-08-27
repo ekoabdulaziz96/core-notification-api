@@ -25,7 +25,7 @@ class TestCreateUser(TestCase):
             "event_id": randint(1, 999999),
             "email_subject": "TEST IN PYTEST",
             "email_content": "Hello, you get a message from core-notif.",
-            "timestamp": (datetime.now() + timedelta(hours=2)).strftime(const.EMAIL_TIMESTAMP_FORMAT)
+            "timestamp": (datetime.now() + timedelta(hours=2)).strftime(const.EMAIL_TIMESTAMP_FORMAT),
         }
         self.complete_url = url_for("emails.save-emails")
 
@@ -94,7 +94,7 @@ class TestCreateUser(TestCase):
         self.assertEqual(len(response.json["data"]), 1)
         self.assertEqual(
             response.json["data"]["timestamp"][0],
-            "Please check your Timestamp format 'Day Month Year Hour:Minute', ex: '15 Dec 2015 23:12'."
+            "Please check your Timestamp format 'Day Month Year Hour:Minute', ex: '15 Dec 2015 23:12'.",
         )
 
     def test_fail_because_invalid_timestamp_threshold(self):
@@ -104,8 +104,7 @@ class TestCreateUser(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(len(response.json["data"]), 1)
         self.assertIn(
-            "Please set the timestamp value at least 5 minutes earlier.",
-            response.json["data"]["timestamp"][0]
+            "Please set the timestamp value at least 5 minutes earlier.", response.json["data"]["timestamp"][0]
         )
 
     def test_success(self):

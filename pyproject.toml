@@ -15,7 +15,7 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-ignore = ["E501", "B9", "B026"]
+#ignore = ["E501", "B9", "B026"]
 
 # https://docs.astral.sh/ruff/rules/#error-e
 select = [
@@ -44,3 +44,14 @@ quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  |migrations
+)/
+'''

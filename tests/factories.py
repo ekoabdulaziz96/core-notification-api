@@ -10,6 +10,7 @@ from models.emails import Email, EmailStatusChoices, UserRecipient
 
 faker = FakeGenerator()
 
+
 class BaseFactory(SQLAlchemyModelFactory):
     class Meta:
         abstract = True
@@ -18,7 +19,7 @@ class BaseFactory(SQLAlchemyModelFactory):
 
 
 class EmailFactory(BaseFactory):
-    event_id = Sequence(lambda n: int(n)+1)
+    event_id = Sequence(lambda n: int(n) + 1)
     email_subject = Faker("sentence")
     email_content = Faker("sentence")
     timestamp = datetime.now(tz=get_timezone())

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta
 from enum import Enum
 from typing import List
@@ -24,16 +23,16 @@ class Email(PkModelWithManageAttr):
     email_content = Column(db.Text, nullable=False)
     timestamp = Column(db.DateTime(timezone=True), nullable=False)
 
-    status = Column('status', db.Enum(EmailStatusChoices, name="email_status_choices_enum"))
+    status = Column("status", db.Enum(EmailStatusChoices, name="email_status_choices_enum"))
 
     email_histories = relationship("EmailHistory", backref="email", lazy="dynamic")
 
     __table_args__ = (
-        db.Index('email_idx_for_time_and_status', timestamp.asc(), status),
-        db.Index('email_idx_for_email_id', event_id, postgresql_using="hash"),
+        db.Index("email_idx_for_time_and_status", timestamp.asc(), status),
+        db.Index("email_idx_for_email_id", event_id, postgresql_using="hash"),
     )
 
-    def __repr__(self):     # pragma: no cover
+    def __repr__(self):  # pragma: no cover
         return f"EMAIL [{self.id}] {self.email_subject[:25]}..."
 
 
@@ -46,7 +45,7 @@ class UserRecipient(PkModelWithManageAttr):
 
     email_histories = relationship("EmailHistory", backref="user_recipient", lazy="dynamic")
 
-    def __repr__(self):      # pragma: no cover
+    def __repr__(self):  # pragma: no cover
         return f"USER_RECIPIENT [{self.id}] {self.email}"
 
 
@@ -61,19 +60,19 @@ class EmailHistory(PkModelWithManageAttr):
     __tablename__ = "email_histories"
     MAX_MESSAGE = 255
 
-    status = Column('status', db.Enum(EmailHistoryStatusChoices, name="email_history_status_choices_enum"))
+    status = Column("status", db.Enum(EmailHistoryStatusChoices, name="email_history_status_choices_enum"))
     err_message = Column(db.String(MAX_MESSAGE), nullable=True)
 
     # many to one relations
     email_id = reference_col("emails", nullable=False)
     user_recipient_id = reference_col("user_recipients", nullable=False)
 
-    def __repr__(self):    # pragma: no cover
+    def __repr__(self):  # pragma: no cover
         return f"EMAIL_HISTORY [{self.history_id}]"
 
 
 # ---------------------------------------------------------------------------- Query class
-class EmailQuery():
+class EmailQuery:
     @classmethod
     def get_by_event_id(cls, event_id: str) -> int:
         return Email.query.filter_by(event_id=event_id).count()
@@ -109,7 +108,7 @@ class UserRecipientQuery(object):
 
 
 class EmailHistoryQuery(object):
-    """ Resource class for doing query data in Email Histories table """
+    """Resource class for doing query data in Email Histories table"""
 
     @classmethod
     def get_one_filter_by_history_id(cls, history_id: str) -> EmailHistory:

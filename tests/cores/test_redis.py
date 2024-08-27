@@ -6,7 +6,7 @@ from server import app
 
 
 @skip("only check test for real server")
-class TestCacheConnection(TestCase):   # pragma: no cover
+class TestCacheConnection(TestCase):  # pragma: no cover
     @classmethod
     def setUpClass(cls):
         super(TestCacheConnection, cls).setUpClass()
