@@ -11,7 +11,7 @@ from tests.factories import EmailFactory, faker
 
 
 @mark.usefixtures("client_test")
-class TestCreateUser(TestCase):
+class TestSaveEmail(TestCase):
     @classmethod
     def setUpClass(cls):
         seed(1)
@@ -53,6 +53,7 @@ class TestCreateUser(TestCase):
     @mock.patch("views.emails.EmailSerializer.is_valid")
     def test_fail_because_server_error(self, mock_convert_datetime):
         mock_convert_datetime.side_effect = Exception("Error System")
+
         response = self.client_app.post(self.complete_url, data=dumps({}), headers=self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)

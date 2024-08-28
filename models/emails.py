@@ -1,17 +1,16 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
 from typing import List
 
-from constants import variables
-from cores.databases import Column, db, PkModelWithManageAttr, reference_col, relationship
+from cores.databases import Column, db, PkModelWithManageAttr, reference_col
 from cores.utils import get_timezone
 
 
 class EmailStatusChoices(Enum):
     PENDING = "pending"
-    QUEUED = "queued"
+    PROCESS = "process"
     SUCCESS = "success"
-    FAIL = "failed"
+    FAILED = "failed"
 
 
 class Email(PkModelWithManageAttr):
@@ -24,8 +23,6 @@ class Email(PkModelWithManageAttr):
     timestamp = Column(db.DateTime(timezone=True), nullable=False)
 
     status = Column("status", db.Enum(EmailStatusChoices, name="email_status_choices_enum"))
-
-    email_histories = relationship("EmailHistory", backref="email", lazy="dynamic")
 
     __table_args__ = (
         db.Index("email_idx_for_time_and_status", timestamp.asc(), status),
@@ -43,17 +40,15 @@ class UserRecipient(PkModelWithManageAttr):
     email = Column(db.String(MAX_EMAIL), nullable=False, unique=True)
     is_active = Column(db.Boolean(), default=False)
 
-    email_histories = relationship("EmailHistory", backref="user_recipient", lazy="dynamic")
-
     def __repr__(self):  # pragma: no cover
         return f"USER_RECIPIENT [{self.id}] {self.email}"
 
 
 class EmailHistoryStatusChoices(Enum):
     PENDING = "pending"
-    QUEUED = "queued"
+    PROCESS = "process"
     SUCCESS = "success"
-    FAIL = "failed"
+    FAILED = "failed"
 
 
 class EmailHistory(PkModelWithManageAttr):
@@ -61,14 +56,14 @@ class EmailHistory(PkModelWithManageAttr):
     MAX_MESSAGE = 255
 
     status = Column("status", db.Enum(EmailHistoryStatusChoices, name="email_history_status_choices_enum"))
+    email_recipients = Column(db.Text, nullable=True)
     err_message = Column(db.String(MAX_MESSAGE), nullable=True)
 
-    # many to one relations
     email_id = reference_col("emails", nullable=False)
-    user_recipient_id = reference_col("user_recipients", nullable=False)
+    email = db.relationship('Email', backref='email_history', uselist=False, lazy=True)
 
     def __repr__(self):  # pragma: no cover
-        return f"EMAIL_HISTORY [{self.history_id}]"
+        return f"EMAIL_HISTORY [{self.email_id}] {self.email_recipients[:20]}..."
 
 
 # ---------------------------------------------------------------------------- Query class
@@ -78,56 +73,24 @@ class EmailQuery:
         return Email.query.filter_by(event_id=event_id).count()
 
     @classmethod
-    def get_all_by_email_subject(cls, email_subject: str) -> List[Email]:
-        return Email.query.filter_by(email_subject=email_subject).all()
-
-    @classmethod
-    def get_all_by_current_datetime(cls, timezone="Asia/Jakarta") -> List[Email]:
-        """read all data filter by `datetime_now`
-        :datetime_now -> datetime_now value for filter data
-        """
-        tz_singapore = get_timezone(timezone)
-        dt_now_str = (datetime.now(tz=tz_singapore) - timedelta(hours=8)).strftime(variables.EMAIL_TIMESTAMP_FORMAT)
-        dt_now = datetime.strptime(dt_now_str, variables.EMAIL_TIMESTAMP_FORMAT)
+    def get_all_by_current_datetime(cls) -> List[Email]:
+        timezone = get_timezone()
+        dt_now = datetime.now(tz=timezone).replace(second=0, microsecond=0)
 
         return Email.query.filter_by(timestamp=dt_now).filter_by(status=EmailStatusChoices.PENDING).all()
 
 
 class UserRecipientQuery(object):
     @classmethod
-    def get_by_recipient_id(cls, recipient_id: str) -> UserRecipient:
-        return UserRecipient.query.filter_by(recipient_id=recipient_id).first()
+    def get_all_of_email_from_active_recipient(cls) -> List[str]:
+        query_emails = UserRecipient.query.filter_by(is_active=True).with_entities(UserRecipient.email).all()
+        if not query_emails:
+            return []
 
-    @classmethod
-    def get_by_email(cls, email: str) -> UserRecipient:
-        return UserRecipient.query.filter_by(email=email).first()
-
-    @classmethod
-    def get_all_of_active_recipient(cls) -> List[UserRecipient]:
-        return UserRecipient.query.filter_by(is_active=True).all()
+        return [email[0] for email in query_emails]
 
 
 class EmailHistoryQuery(object):
-    """Resource class for doing query data in Email Histories table"""
-
     @classmethod
-    def get_one_filter_by_history_id(cls, history_id: str) -> EmailHistory:
-        """read one data filter by `history_id`
-        :history_id -> history_id value for filter data
-        """
-        return EmailHistory.query.filter_by(history_id=history_id).first()
-
-    @classmethod
-    def get_one_filter_by_emailID_and_userRecipientID(cls, email_id: str, user_recipient_id: str) -> EmailHistory:
-        """read one data filter by `email_id` and `user_recipient_id`
-        :email_id -> email_id value for filter data
-        :user_recipient_id -> user_recipient_id value for filter data
-        """
-        return EmailHistory.query.filter_by(email_id=email_id).filter_by(user_recipient_id=user_recipient_id).first()
-
-    @classmethod
-    def get_all_filter_by_email_id(cls, email_id: str) -> List[EmailHistory]:
-        """read all data filter by `email_id`
-        :email_id -> email_id value for filter data
-        """
-        return EmailHistory.query.filter_by(email_id=email_id).all()
+    def get_by_email_id(cls, email_id: str) -> List[EmailHistory]:
+        return EmailHistory.query.filter_by(email_id=email_id).first()

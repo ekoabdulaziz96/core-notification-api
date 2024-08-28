@@ -70,9 +70,10 @@ def make_celery(app):
         "core_notif",
         broker=app.config["CELERY_BROKER_URL"],
         result_backend=app.config["CELERY_RESULT_BACKEND"],
-        include=["services.tasks.workers"],
+        include=["tasks.workers"],
         enable_utc=True,
         timezone=app.config["CELERY_TIMEZONE"],
+        broker_connection_retry_on_startup=True,
     )
 
     class ContextTask(celery.Task):

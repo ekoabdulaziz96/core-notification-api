@@ -4,4 +4,5 @@ omit=
     server.py
     seeders/*
     cores/setinngs.py
+    cores/sentry.py
     cores/commands.py

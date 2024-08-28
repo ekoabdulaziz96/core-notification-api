@@ -3,9 +3,8 @@ from marshmallow import ValidationError
 
 from constants.messages import resp_err
 from cores.databases import db
-from cores.exceptions import ValidationException
+from cores.exceptions import capture_rest_api_exception, ValidationException
 from cores.responses import Response
-from cores.sentry import capture_rest_api_exception
 
 
 class Middleware:

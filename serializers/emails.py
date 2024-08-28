@@ -6,7 +6,7 @@ from constants import variables
 from constants.messages import MessageInvalid
 from cores import settings
 from cores.serializers import Serializer
-from cores.utils import convert_datetime_to_aware_timezone, get_timezone
+from cores.utils import get_timezone
 from models.emails import Email, EmailQuery, EmailStatusChoices
 
 
@@ -36,20 +36,19 @@ class EmailSerializer(Serializer):
     @validates_schema
     def validates_data(self, data, **kwargs):
         timezone = get_timezone()
-        dt_now = datetime.now(tz=timezone)
+        dt_now = datetime.now(tz=timezone).replace(second=0, microsecond=0)
         dt_now_str = dt_now.strftime(variables.EMAIL_TIMESTAMP_FORMAT)
+
+        timestamp_with_timezone = timezone.localize(data["timestamp"])
+
+        delta_dt = (timestamp_with_timezone - dt_now).total_seconds()
         threshold = settings.EMAIL_TIMESTAMP_THRESHOLD
-
-        timestamp = data["timestamp"]
-        dt_input_aware_timezone = convert_datetime_to_aware_timezone(timestamp, timezone)
-
-        delta_dt = (dt_input_aware_timezone - dt_now).total_seconds()
         if delta_dt < threshold * 60:
             raise ValidationError(
                 MessageInvalid.TIMESTAMP_THRESHOLD.format(threshold, dt_now_str), field_name="timestamp"
             )
 
-        data["timestamp"] = dt_input_aware_timezone
+        data["timestamp"] = timestamp_with_timezone
         return data
 
     def is_valid(self, payload):

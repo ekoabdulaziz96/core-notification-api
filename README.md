@@ -95,9 +95,9 @@ Make sure you already installed **python3.10** or higher in your machine
     ```
 
 ### Need to know
-- you can set your `TIMEZONE`, and `TIMEZONE_ADD_HOUR_FROM_UTC` in .env file
-- you can set your email threshold (`EMAIL_TIMESTAMP_THRESHOLD`) in env file, you can set it to `0` minutes
--  
+- you can set your `TIMEZONE` location in .env file
+- you can set your email threshold to `0` minutes, var name `EMAIL_TIMESTAMP_THRESHOLD` in env file
+- you can set interval schedule of task send email, var name `SCHEDULE_TASK_INTERVAL_SEND_EMAIL` in env file  
 
 <br>
 

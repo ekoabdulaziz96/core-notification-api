@@ -1,12 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from random import randint
 
 from pytz import (
     timezone as Timezone,
-    UTC,
 )
 
-from cores.settings import TIMEZONE, TIMEZONE_ADD_HOUR
+from cores.settings import TIMEZONE
 
 
 def generate_api_call_id() -> str:
@@ -30,13 +29,3 @@ def get_timezone(timezone: str = TIMEZONE) -> Timezone:
         return tz
     except Exception:  # pragma: no cover
         return Timezone("Asia/Jakarta")
-
-
-def convert_datetime_to_aware_timezone(datetime: datetime, timezone: Timezone) -> datetime:
-    """convert datetime obj saved in db to specific timezone
-    :datetime -> datetime obj
-    :timezone -> timezone obj
-    """
-    dt_aware_timezone = (datetime - timedelta(hours=TIMEZONE_ADD_HOUR)).replace(tzinfo=UTC).astimezone(timezone)
-
-    return dt_aware_timezone

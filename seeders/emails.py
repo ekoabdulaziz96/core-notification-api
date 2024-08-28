@@ -8,12 +8,14 @@ from seeders._parents import ParentSeeder  # noqa
 
 # ----------------------------------------------------- PREPARE SEED DATA
 PAYLOAD_USER_RECIPIENT_LIST = [
-    dict(
-        email="azizeko29undip@gmail.com",
-    ),
-    dict(
-        email="ekoabdulaziz96@gmail.com",
-    ),
+    {
+        "email": "azizeko29undip@gmail.com",
+        "is_active": True
+    },
+    {
+        "email": "ekoabdulaziz96@gmail.com",
+        "is_active": True
+    },
 ]
 
 

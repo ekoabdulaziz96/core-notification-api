@@ -10,7 +10,6 @@ FLASK_APP = env.str("FLASK_APP", default="server.py")
 ENV = env.str("FLASK_ENV", default="production")
 DEBUG = ENV == "development"
 TIMEZONE = env.str("TIMEZONE", default="Asia/Jakarta")
-TIMEZONE_ADD_HOUR = env.int("TIMEZONE_ADD_HOUR_FROM_UTC", default=7)
 
 LOG_LEVEL = logging.INFO
 if DEBUG:
@@ -43,3 +42,4 @@ MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 
 EMAIL_TIMESTAMP_THRESHOLD = env.int("EMAIL_TIMESTAMP_THRESHOLD", default=1)  # minutes
+SCHEDULE_TASK_INTERVAL_SEND_EMAIL = env.int("SCHEDULE_TASK_INTERVAL_SEND_EMAIL", default=30)  # second
