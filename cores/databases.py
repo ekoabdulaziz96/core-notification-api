@@ -77,8 +77,6 @@ class PkModelWithManageAttr(PkModel):
 
     __abstract__ = True
 
-    is_deleted = Column(db.Boolean, default=False)
-
     created_at = Column(db.DateTime, default=datetime.now())
     updated_at = Column(db.DateTime, default=datetime.now())
 
