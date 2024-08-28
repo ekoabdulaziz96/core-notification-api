@@ -60,7 +60,7 @@ class EmailHistory(PkModelWithManageAttr):
     err_message = Column(db.String(MAX_MESSAGE), nullable=True)
 
     email_id = reference_col("emails", nullable=False)
-    email = db.relationship('Email', backref='email_history', uselist=False, lazy=True)
+    email = db.relationship("Email", backref="email_history", uselist=False, lazy=True)
 
     def __repr__(self):  # pragma: no cover
         return f"EMAIL_HISTORY [{self.email_id}] {self.email_recipients[:20]}..."

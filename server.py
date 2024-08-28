@@ -14,8 +14,9 @@ def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
         SCHEDULE_TASK_INTERVAL_SEND_EMAIL,
         task_send_email,
-        name=f"task-send-email-every-{SCHEDULE_TASK_INTERVAL_SEND_EMAIL}-second"
+        name=f"task-send-email-every-{SCHEDULE_TASK_INTERVAL_SEND_EMAIL}-second",
     )
+
 
 # ----------------------------- route index
 @app.route("/", methods=["GET"])

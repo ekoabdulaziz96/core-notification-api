@@ -9,7 +9,6 @@ author: ekoabdulaziz96@gmail.com
 [![Code](https://img.shields.io/badge/Code-Python-1B9D73?style=flat&logo=python)](https://python.org)
 [![Framework](https://img.shields.io/badge/Framework-Flask-1B9D73?style=flat&logo=flask)](https://flask.palletsprojects.com/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## How to run
 Make sure you already installed **python3.10** or higher in your machine
@@ -101,12 +100,12 @@ Make sure you already installed **python3.10** or higher in your machine
 
 <br>
 
-### How to set connection DB
+## How to set connection DB
 Set your .env file for variable key for `SQLALCHEMY_DATABASE_URI` 
 <br> ex : `SQLALCHEMY_DATABASE_URIL="postgresql://username:password@host:port/db_name"`
 <br><br>
 
-### How to Manage ORM DB 
+## How to Manage ORM DB 
 1. only for the first time, when you create migration file
     ``` sh
     flask db init -d 'models/migrations'
@@ -129,7 +128,7 @@ Set your .env file for variable key for `SQLALCHEMY_DATABASE_URI`
 
 <br>
 
-### Unittest
+## Unittest & Coverage
 all of unit test all saved in `./tests/*` folder. 
 
 1. Run Unittest (using pytest)
@@ -159,7 +158,7 @@ all of unit test all saved in `./tests/*` folder.
     ```
 <br>
 
-### Lint & Format
+## Linting & Formatter
 Ruff re-implements some of the most popular Flake8 plugins and related code quality tools (include: isort)
 ```sh
 #  LINTING
@@ -173,23 +172,21 @@ ruff check --fix
 # ex: a = 1   # noqa
 ```
 
-Auto Formatter with black 
+Auto Formatter with Ruff
+<br> The Ruff formatter is an extremely fast Python code formatter designed as a drop-in replacement for Black
+ 
 ```sh
-# check first
-black --config .\pyproject.toml . --check
+# FORMATTER
+ruff check --select I --fix   # run isort (to sorting the import)
+ruff format
 
-# run black
-black --config .\pyproject.toml .
-black --config .\pyproject.toml  app_name/sub_folder
-
-# ignore check , add this comment after last code `# noqa`
+# ignore check , add this comment after last code `# fmt: skip`
 # ex: a = 1   # fmt: skip
 ```
-    
+ 
 <br>
 
-
-### Direktory explaination:
+## Direktory explaination:
 ```sh
 ./constants         # place your static data, variable, etc 
 ./cores             # place for app, config, extension, core class : [middleare, response, etc]
@@ -213,7 +210,7 @@ start-app.sh        # setting bash script to run app
 
 <br>
 
-### Note:
+## Note:
 - this project is created base on [flask cookiecuter](https://github.com/cookiecutter-flask/cookiecutter-flask)
 - structure module and name are insipired from [Django Rest Framework](https://www.django-rest-framework.org/)
 - The goal is to build boilerplate/skeleton/template microservices project for RESTfull API
