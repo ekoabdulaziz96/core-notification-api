@@ -19,9 +19,7 @@ class EmailAdmin(sqla.ModelView):
 
     column_list = ["event_id", "email_subject", "email_content", "timestamp"]
 
-    column_formatters = {
-        "timestamp": lambda v, c, m, p: m.timestamp.astimezone(tz=get_timezone())
-    }
+    column_formatters = {"timestamp": lambda v, c, m, p: m.timestamp.astimezone(tz=get_timezone())}
 
 
 class UserRecipientAdmin(sqla.ModelView):
@@ -36,9 +34,7 @@ class UserRecipientAdmin(sqla.ModelView):
     form_excluded_columns = ["created_at", "updated_at"]
 
     form_args = {
-        'email': {
-            'validators': [validators.Email()]
-        },
+        "email": {"validators": [validators.Email()]},
     }
 
 

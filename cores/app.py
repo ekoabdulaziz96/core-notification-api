@@ -21,7 +21,7 @@ def create_app(config_object=settings, testing=None):
     register_commands(app)
 
     if testing:
-        app.testing=testing
+        app.testing = testing
 
     return app
 
@@ -54,9 +54,10 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
-        
+
     if not app.testing:
         from admins._register_views import bp_admins
+
         app.register_blueprint(bp_admins)
 
 
