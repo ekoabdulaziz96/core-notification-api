@@ -7,6 +7,7 @@ env = Env()
 env.read_env()
 
 FLASK_APP = env.str("FLASK_APP", default="server.py")
+SECRET_KEY = env.str("SECRET_KEY", default="cb4758264051459d9b2421909054b18f")
 ENV = env.str("FLASK_ENV", default="production")
 DEBUG = ENV == "development"
 TIMEZONE = env.str("TIMEZONE", default="Asia/Jakarta")

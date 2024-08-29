@@ -18,9 +18,6 @@ Make sure you already installed **python3.10** or higher in your machine
     ```sh
     # for development purpose
     pip install -r ./requirements/dev.txt
-
-    # for production server
-    pip install -r requirements.txt
     ```
 3. Move your current root path to this project
     ```sh
@@ -92,6 +89,15 @@ Make sure you already installed **python3.10** or higher in your machine
     # celery beat
     celery -A server.celery beat --loglevel INFO
     ```
+9. consume endpoint save email, url: `{base_url}/save_emails`
+    - the api contract is in folder `xsources` (.pdf files)
+    - If you want to use `postmant`, you can import my collection in folder `xsources`
+
+10. Monitoring using CMS, url: `{base_url}/admin/`
+    - there is some menu: Email, UserRecipient, EmailHistory
+    - you can manage user recipient on CMS 
+    
+<br>
 
 ### Need to know
 - you can set your `TIMEZONE` location in .env file

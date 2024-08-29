@@ -6,7 +6,7 @@ from models._register_tables import register_tables
 from urls._register_routers import blueprints
 
 
-def create_app(config_object=settings):
+def create_app(config_object=settings, testing=None):
     """
     Create application factory,
     as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -19,6 +19,9 @@ def create_app(config_object=settings):
     register_extensions(app)
     register_shellcontext(app)
     register_commands(app)
+
+    if testing:
+        app.testing=testing
 
     return app
 
@@ -43,12 +46,18 @@ def register_extensions(app):
     extensions.ma.init_app(app)
     extensions.cache.init_app(app)
     extensions.mail.init_app(app)
+    if not app.testing:
+        extensions.admin.init_app(app)
 
 
 def register_blueprints(app):
     """Register Flask blueprints."""
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
+        
+    if not app.testing:
+        from admins._register_views import bp_admins
+        app.register_blueprint(bp_admins)
 
 
 def register_shellcontext(app):

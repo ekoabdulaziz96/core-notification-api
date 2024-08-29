@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "831e4074-f4a2-48ab-b6df-2727690e372c",
+		"name": "core-notification-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9807530",
+		"_collection_link": "https://restless-eclipse-114772.postman.co/workspace/Flask~f8be9472-9271-465e-a1c0-551d45e32247/collection/9807530-831e4074-f4a2-48ab-b6df-2727690e372c?action=share&source=collection_link&creator=9807530"
+	},
+	"item": [
+		{
+			"name": "save_emails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"event_id\": \"2\",\r\n    \"email_subject\": \"TEST IN POSTMAT\",\r\n    \"email_content\": \"Hello, you get a message from core-notif.\",\r\n    \"timestamp\": \"27 Aug 2024 11:10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/save_emails",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"save_emails"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "save_emails",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_id\": \"2\",\r\n    \"email_subject\": \"TEST IN POSTMAT\",\r\n    \"email_content\": \"Hello, you get a message from core-notif.\",\r\n    \"timestamp\": \"27 Aug 2024 14:40\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/save_emails",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"save_emails"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.4 Python/3.10.14"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 27 Aug 2024 06:32:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "375"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"email_content\": \"Hello, you get a message from core-notif.\",\n        \"email_subject\": \"TEST IN POSTMAT\",\n        \"event_id\": 2,\n        \"status\": \"pending\",\n        \"timestamp\": \"27 Aug 2024 14:40\"\n    },\n    \"message\": \"Request successfully processed.\",\n    \"request_datetime\": \"2024-08-27 14:32:53\",\n    \"request_id\": \"API_CALL_08272024_133253_9165984\",\n    \"status\": \"SUCCESS\"\n}"
+				},
+				{
+					"name": "save_emails",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_id\": \"11\",\r\n    \"email_subject\": \"TEST IN POSTMAT\",\r\n    \"email_content\": \"Hello, you get a message from core-notif.\",\r\n    \"timestamp\": \"29 Aug 2024 12:50\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/save_emails",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"save_emails"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.4 Python/3.10.14"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Aug 2024 04:44:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "376"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"email_content\": \"Hello, you get a message from core-notif.\",\n        \"email_subject\": \"TEST IN POSTMAT\",\n        \"event_id\": 11,\n        \"status\": \"pending\",\n        \"timestamp\": \"29 Aug 2024 12:50\"\n    },\n    \"message\": \"Request successfully processed.\",\n    \"request_datetime\": \"2024-08-29 12:44:12\",\n    \"request_id\": \"API_CALL_08292024_114412_2386265\",\n    \"status\": \"SUCCESS\"\n}"
+				}
+			]
+		}
+	]
+}
