@@ -3,6 +3,8 @@ omit=
     venv/*
     server.py
     seeders/*
+    cores/app.py
     cores/setinngs.py
     cores/sentry.py
     cores/commands.py
+    admins/*

@@ -30,7 +30,7 @@ class Email(PkModelWithManageAttr):
     )
 
     def __repr__(self):  # pragma: no cover
-        return f"EMAIL [{self.id}] {self.email_subject[:25]}..."
+        return f"[Event ID: {self.event_id}] {self.email_subject[:25]}..."
 
 
 class UserRecipient(PkModelWithManageAttr):
