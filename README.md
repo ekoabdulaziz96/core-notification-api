@@ -14,14 +14,14 @@ author: ekoabdulaziz96@gmail.com
 Make sure you already installed **python3.10** or higher in your machine
 
 1. Create your virtualenv and activate (if you are using virtuanenv)
-2. Install library 
+2. Move your current root path to this project
+    ```sh
+    cd core-notification-api
+    ```
+3. Install library 
     ```sh
     # for development purpose
     pip install -r ./requirements/dev.txt
-    ```
-3. Move your current root path to this project
-    ```sh
-    cd core-notification-api
     ```
 4. make .env file, you can duplicate it from .env.dev and rename it to .env
     - you can edit the value for your own environment IP/port or something else
@@ -194,6 +194,7 @@ ruff format
 
 ## Direktory explaination:
 ```sh
+./admins            # place your cms admin 
 ./constants         # place your static data, variable, etc 
 ./cores             # place for app, config, extension, core class : [middleare, response, etc]
 ./models            # place for ORM models and migration file 

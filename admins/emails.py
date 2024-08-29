@@ -17,7 +17,7 @@ class EmailAdmin(sqla.ModelView):
     can_delete = False
     can_view_details = True
 
-    column_list = ["event_id", "email_subject", "email_content", "timestamp"]
+    column_list = ["event_id", "email_subject", "email_content", "timestamp", "status"]
 
     column_formatters = {"timestamp": lambda v, c, m, p: m.timestamp.astimezone(tz=get_timezone())}
 
